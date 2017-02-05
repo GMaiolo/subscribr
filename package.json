@@ -1,0 +1,36 @@
+{
+  "name": "subscribr",
+  "version": "1.0.2",
+  "description": "A tiny event subscriber.",
+  "main": "subscribr.js",
+  "scripts": {
+    "minify": "uglifyjs subscribr.js -m -c -o subscribr.min.js",
+    "test": "mocha --compilers js:babel-register **/*.spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GMaiolo/subscribr.git"
+  },
+  "keywords": [
+    "library",
+    "lib",
+    "subscriber",
+    "event",
+    "handler",
+    "management",
+    "api"
+  ],
+  "author": "GMaiolo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GMaiolo/subscribr/issues"
+  },
+  "homepage": "https://github.com/GMaiolo/subscribr#readme",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.22.0",
+    "babel-register": "^6.22.0",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "uglify-js": "github:mishoo/UglifyJS2#harmony"
+  }
+}
