@@ -1,4 +1,4 @@
-<img src="https://img.shields.io/npm/v/subscribr.svg" alt="npm">
+[![](https://img.shields.io/npm/v/subscribr.svg)](https://www.npmjs.com/package/subscribr)
 
 # API
 
