@@ -17,7 +17,7 @@ class Subscribr {
         if(!handler || typeof handler !== 'function') throw new Error('Invalid handler');
         if (eventId === '*') {
             const index = this._interceptors.push(handler) - 1;
-            return () => this._interceptors.splice(index - 1);
+            return () => this._interceptors.splice(index, 1);
         }
         if (!this._list[eventId]) this._list[eventId] = [];
         const index = this._list[eventId].push(handler) - 1;
