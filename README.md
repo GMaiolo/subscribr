@@ -1,4 +1,3 @@
-[![](https://img.shields.io/npm/v/subscribr.svg)](https://www.npmjs.com/package/subscribr)
 <img src="https://img.shields.io/npm/v/subscribr.svg" alt="npm">
 
 # API
