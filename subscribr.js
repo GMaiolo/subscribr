@@ -41,7 +41,7 @@ class Subscribr {
     }
 
     get all() { 
-        return [ ...this.interceptors, ...this.events ] 
+        return [ ...this.interceptors, ...this.events ];
     }
 
 }
