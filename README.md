@@ -2,7 +2,7 @@
 
 # API
 
-## Subscribr.on(eventId, handler) 
+## `Subscribr.on(eventId, handler)`
 
 Subscribe to an event.
 
@@ -10,15 +10,15 @@ Subscribe to an event.
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| eventId | `string`  | - the event ID. |
-| handler | `function`  | - the callback function. |
+| eventId | `string`  | the event ID. |
+| handler | `function`  | the callback function. |
 
 #### Returns
 
 - `function`  Subscription destroyer.
 <br>
 
-## Subscribr.emit(eventId, params) 
+## `Subscribr.emit(eventId, params)`
 
 Emit an event.
 
@@ -26,11 +26,11 @@ Emit an event.
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| eventId | `string`  | - the event ID. |
-| params | `object`  | - handler params. |
+| eventId | `string`  | the event ID. |
+| params | `object`  | handler params. |
 <br>
 
-## Subscribr.list(eventId) 
+## `Subscribr.listHandlers(eventId)`
 
 List an event's handlers.
 
@@ -38,14 +38,14 @@ List an event's handlers.
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| eventId | `string`  | - the event ID. |
+| eventId | `string`  | the event ID. |
 
 #### Returns
 
 - `array`  Event handlers.
 <br>
 
-## Subscribr.remove(eventId) 
+## `Subscribr.remove(eventId)`
 
 Unsubscribe an event.
 
@@ -53,10 +53,10 @@ Unsubscribe an event.
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| eventId | `string`  | - the event ID. |
+| eventId | `string`  | the event ID. |
 <br>
 
-## Subscribr.interceptors() 
+## `Subscribr.interceptors`
 
 Get interceptors.
 
@@ -65,9 +65,18 @@ Get interceptors.
 - `array`  Interceptors.
 <br>
 
-## Subscribr.allEvents() 
+## `Subscribr.events`
 
-Get all events.
+Get events.
+
+#### Returns
+
+- `array`  Events.
+<br>
+
+## `Subscribr.all`
+
+Get all events and interceptors.
 
 #### Returns
 
