@@ -1,4 +1,4 @@
-/** Subscribr, a tiny event subscriber. */
+/* Subscribr, a tiny event subscriber. */
 class Subscribr {
 
     constructor() {
@@ -6,12 +6,6 @@ class Subscribr {
         this._interceptors = [];
     }
 
-    /**
-    * Subscribe to an event.
-    * @param {string} eventId - the event ID.
-    * @param {function} handler - the callback function.
-    * @return {function} Subscription destroyer.
-    */
     on(eventId, handler) {
         if(!eventId || typeof eventId !== 'string') throw new Error('Invalid event identifier');
         if(!handler || typeof handler !== 'function') throw new Error('Invalid handler');
@@ -24,44 +18,31 @@ class Subscribr {
         return () => this._list[eventId].splice(index, 1);
     }
 
-    /**
-    * Emit an event.
-    * @param {string} eventId - the event ID.
-    * @param {object} params - handler params.
-    */
     emit(eventId, params) {
         if(!eventId || typeof eventId !== 'string') throw new Error('Invalid event identifier');
+        if(!this._list[eventId]) return;
         [...this._interceptors, ...this._list[eventId]].forEach(handler => handler(params));
     }
 
-    /**
-    * List an event's handlers.
-    * @param {string} eventId - the event ID.
-    * @return {array} Event handlers.
-    */
-    list(eventId) {
-        return eventId ? this._list[eventId] : this._list;
+    listHandlers(eventId) {
+        return this._list[eventId];
     }
 
-    /**
-    * Unsubscribe an event.
-    * @param {string} eventId - the event ID.
-    */
     remove(eventId) {
         delete this._list[eventId];
     }
 
-    /**
-    * Get interceptors.
-    * @return {array} Interceptors.
-    */
-    get interceptors() { return this._interceptors; }
+    get interceptors() { 
+        return this._interceptors.map(interceptor => ({ interceptor })); 
+    }
 
-    /**
-    * Get all events.
-    * @return {object} Events.
-    */
-    get allEvents() { return this._list; }
+    get events() {
+        return Object.keys(this._list).map(key => this._list[key]);
+    }
+
+    get all() { 
+        return [ ...this.interceptors, ...this.events ] 
+    }
 
 }
 
