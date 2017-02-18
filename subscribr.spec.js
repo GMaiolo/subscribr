@@ -48,18 +48,13 @@ describe('Class', () => {
                 const _fn = () => subscribr.one(mock.eventId, null);
                 _fn.should.Throw(Error);
             });
-
             it('should return a destroyer function', () => subscribr.one(mock.eventId, mock.handler).should.be.a(constants.fn));
-
             it('should unsuscribe the handler after one emition of the event', () => {
                 subscribr.one(mock.eventId, () => {});
-
                 const handlersBefore = subscribr.listHandlers(mock.eventId);
                 handlersBefore.should.be.a(constants.arr);
                 handlersBefore.should.have.lengthOf(1);
-
                 subscribr.emit(mock.eventId);
-
                 const handlersAfter = subscribr.listHandlers(mock.eventId);
                 handlersAfter.should.be.a(constants.arr);
                 handlersAfter.should.have.lengthOf(0);
