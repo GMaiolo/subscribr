@@ -38,6 +38,34 @@ describe('Class', () => {
             it('should return a destroyer function', () => subscribr.on(mock.eventId, mock.handler).should.be.a(constants.fn));
         });
 
+        describe('one()', () => {
+            it('should be a function', () => subscribr.one.should.be.a(constants.fn));
+            it('should throw an error on invalid eventId', () => {
+                const _fn = () => subscribr.on(null, mock.handler);
+                _fn.should.Throw(Error);
+            });
+            it('should throw an error on invalid handler', () => {
+                const _fn = () => subscribr.one(mock.eventId, null);
+                _fn.should.Throw(Error);
+            });
+
+            it('should return a destroyer function', () => subscribr.one(mock.eventId, mock.handler).should.be.a(constants.fn));
+
+            it('should unsuscribe the handler after one emition of the event', () => {
+                subscribr.one(mock.eventId, () => {});
+
+                const handlersBefore = subscribr.listHandlers(mock.eventId);
+                handlersBefore.should.be.a(constants.arr);
+                handlersBefore.should.have.lengthOf(1);
+
+                subscribr.emit(mock.eventId);
+
+                const handlersAfter = subscribr.listHandlers(mock.eventId);
+                handlersAfter.should.be.a(constants.arr);
+                handlersAfter.should.have.lengthOf(0);
+            });
+        });
+
         describe('emit()', () => {
             it('should be a function', () => subscribr.emit.should.be.a(constants.fn));
             it('should throw an error on invalid eventId', () => {
