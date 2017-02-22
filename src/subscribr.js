@@ -1,4 +1,4 @@
-module.exports = class Subscribr {
+class Subscribr {
 
     constructor() {
         this._list = {};
@@ -66,3 +66,5 @@ function createEventDestroyer(handlerId, list, eventId) {
         if(!list[eventId].length) delete list[eventId];
     }
 }
+
+module.exports = Subscribr;
