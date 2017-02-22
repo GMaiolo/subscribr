@@ -2,15 +2,23 @@
   "name": "subscribr",
   "version": "1.9.0",
   "description": "A tiny event subscriber.",
-  "main": "subscribr.js",
+  "main": "./dist/subscribr.js",
   "scripts": {
-    "minify": "uglifyjs subscribr.js -m -c -o subscribr.min.js",
-    "test": "mocha --compilers js:babel-register **/*.spec.js"
+    "prepublish": "npm run build",
+    "build": "npm run clean && npm run transpile && npm run minify && npm run test",
+    "minify": "uglifyjs dist/subscribr.js -m -c -o dist/subscribr.js",
+    "transpile": "babel src/subscribr.js --out-file dist/subscribr.js",
+    "test": "mocha --compilers js:babel-register test/**/*.spec.js",
+    "clean": "rm -rf dist/*"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GMaiolo/subscribr.git"
   },
+  "files": [
+    "src",
+    "dist"
+  ],
   "keywords": [
     "library",
     "lib",
@@ -27,6 +35,7 @@
   },
   "homepage": "https://github.com/GMaiolo/subscribr#readme",
   "devDependencies": {
+    "babel-cli": "^6.23.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-register": "^6.22.0",
     "chai": "^3.5.0",

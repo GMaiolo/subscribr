@@ -1,5 +1,5 @@
 import chai from 'chai';
-import Subscribr from './subscribr';
+import Subscribr from '../src/subscribr';
 
 let should = chai.should();
 
@@ -14,6 +14,10 @@ const mock = {
     eventId: 'mockEventId',
     handler: (id = 0) => `mockReturn-${id}`
 };
+
+function reduceSumFn(arr) { 
+    return arr.reduce((acc, val) => acc + val) 
+}
 
 let subscribr;
 
@@ -50,14 +54,15 @@ describe('Class', () => {
             });
             it('should return a destroyer function', () => subscribr.one(mock.eventId, mock.handler).should.be.a(constants.fn));
             it('should unsuscribe the handler after one emition of the event', () => {
-                subscribr.one(mock.eventId, () => {});
+                subscribr.on(mock.eventId, () => { });
+                subscribr.one(mock.eventId, () => { });
                 const handlersBefore = subscribr.listHandlers(mock.eventId);
                 handlersBefore.should.be.a(constants.arr);
-                handlersBefore.should.have.lengthOf(1);
+                handlersBefore.should.have.lengthOf(2);
                 subscribr.emit(mock.eventId);
                 const handlersAfter = subscribr.listHandlers(mock.eventId);
                 handlersAfter.should.be.a(constants.arr);
-                handlersAfter.should.have.lengthOf(0);
+                handlersAfter.should.have.lengthOf(1);
             });
         });
 
@@ -83,6 +88,39 @@ describe('Class', () => {
             });
         });
 
+        describe('[handler] execution', () => {
+            it('all event handlers should be called on emit', () => {
+                let calledQuantity = 0;
+                subscribr.on(mock.eventId, () => calledQuantity++); /* 1 */
+                subscribr.on(mock.eventId, () => calledQuantity++); /* 2 */
+                subscribr.emit(mock.eventId);
+                calledQuantity.should.equal(2);
+                calledQuantity = 0;
+                subscribr.on(mock.eventId, () => calledQuantity++); /* 3 */
+                const fourthHandlerDestroyer = subscribr.on(mock.eventId, () => calledQuantity++); /* 4 */
+                subscribr.on(mock.eventId, () => calledQuantity++); /* 5 */
+                subscribr.emit(mock.eventId);
+                calledQuantity.should.equal(5);
+                calledQuantity = 0;
+                fourthHandlerDestroyer();
+                subscribr.emit(mock.eventId);
+                calledQuantity.should.equal(4);
+            });
+            it('should be called with the parameters passed', () => {
+                const strParameterCheck = param => (typeof param).should.equal(constants.str);
+                subscribr.on(`mock${1}`, strParameterCheck);
+                subscribr.emit(`mock${1}`, 'someString');
+                const arrParameterCheck = param => param.should.be.a(constants.arr);
+                subscribr.on(`mock${2}`, arrParameterCheck);
+                subscribr.emit(`mock${2}`, []);
+                subscribr.on(`mock${3}`, params => params.res = reduceSumFn(params.arr));
+                let params = { arr: [5, 5, 5, 5] };
+                const expectedSum = reduceSumFn(params.arr);
+                subscribr.emit(`mock${3}`, params);
+                params.res.should.equal(expectedSum);
+            })
+        })
+
         describe('listHandlers()', () => {
             beforeEach(() => {
                 subscribr.on(mock.eventId, mock.handler);
@@ -102,8 +140,33 @@ describe('Class', () => {
 
         describe('remove()', () => {
             it('should be a function', () => subscribr.remove.should.be.a(constants.fn));
-            /* TODO */
+            it('should delete the whole event', () => {
+                subscribr.on(mock.eventId, mock.handler);
+                subscribr.on(mock.eventId, mock.handler);
+                subscribr.on(mock.eventId, mock.handler);
+                const beforeRemovalHandlers = subscribr.listHandlers(mock.eventId);
+                beforeRemovalHandlers.should.have.lengthOf(3);
+                subscribr.remove(mock.eventId);
+                const afterRemovalHandlers = subscribr.listHandlers(mock.eventId);
+                should.not.exist(afterRemovalHandlers);
+            })
         });
+
+        describe('[handler] destroyers', () => {
+            it('should be a function', () => subscribr.on(mock.eventId, mock.handler).should.be.a(constants.fn))
+            it('should remove the handler from the event', () => {
+                const destroyer1 = subscribr.on(mock.eventId, mock.handler);
+                const destroyer2 = subscribr.one(mock.eventId, mock.handler);
+                const handlersBefore = subscribr.listHandlers(mock.eventId);
+                handlersBefore.should.have.lengthOf(2);
+                destroyer2();
+                const handlersAfterFirstDestroy = subscribr.listHandlers(mock.eventId);
+                handlersAfterFirstDestroy.should.have.lengthOf(1);
+                destroyer1();
+                const leftover = subscribr.listHandlers(mock.eventId);
+                should.not.exist(leftover);
+            });
+        })
 
         describe('interceptors', () => {
             it('should be an array', () => subscribr.interceptors.should.be.a(constants.arr));
