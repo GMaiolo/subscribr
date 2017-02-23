@@ -6,10 +6,10 @@
   "scripts": {
     "prepublish": "npm run build",
     "build": "npm run clean && npm run transpile && npm run minify && npm run test",
-    "minify": "uglifyjs dist/subscribr.js -m -c -o dist/subscribr.js",
-    "transpile": "mkdir dist && babel src/subscribr.js --out-file dist/subscribr.js",
+    "minify": "uglifyjs dist/subscribr.js -c -o dist/subscribr.js",
+    "transpile": "babel src/subscribr.js --out-file dist/subscribr.js",
     "test": "mocha --compilers js:babel-register test/**/*.spec.js",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist && mkdir dist"
   },
   "repository": {
     "type": "git",
