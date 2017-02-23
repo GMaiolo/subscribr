@@ -1,4 +1,5 @@
 [![](https://img.shields.io/npm/v/subscribr.svg)](https://www.npmjs.com/package/subscribr)
+[![](https://api.travis-ci.org/gmaiolo/subscribr.svg)](https://travis-ci.org/GMaiolo/subscribr)
 
 # API
 
