@@ -1,4 +1,4 @@
-export default class Subscribr {
+module.exports = class Subscribr {
 
     constructor() {
         this._list = {};
