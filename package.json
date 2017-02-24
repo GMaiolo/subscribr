@@ -5,7 +5,7 @@
   "main": "./dist/subscribr.js",
   "scripts": {
     "prepublish": "npm run build",
-    "build": "npm run clean && npm run transpile && npm run minify && npm run test",
+    "build": "npm run clean && npm run transpile && npm run minify",
     "minify": "uglifyjs dist/subscribr.js -c -o dist/subscribr.js",
     "transpile": "babel src/subscribr.js --out-file dist/subscribr.js",
     "test": "mocha --compilers js:babel-register test/**/*.spec.js",
