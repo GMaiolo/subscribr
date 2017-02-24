@@ -4,6 +4,7 @@
   <a href="https://david-dm.org/GMaiolo/subscribr"><img src="https://david-dm.org/GMaiolo/subscribr.svg" alt="dependencies"></a>
   <a href="https://david-dm.org/GMaiolo/subscribr?type=dev"><img src="https://david-dm.org/GMaiolo/subscribr/dev-status.svg" alt="dev dependencies"></a>
 </p>
+
 # API
 
 ## `Subscribr.on(eventId, handler)`
