@@ -40,6 +40,15 @@ describe('Class', () => {
                 _fn.should.Throw(Error);
             });
             it('should return a destroyer function', () => subscribr.on(mock.eventId, mock.handler).should.be.a(constants.fn));
+
+            it('should not create the same id for differents handlers', () => {
+                subscribr.on(mock.eventId, () => {});
+                subscribr.on(mock.eventId, () => {});
+                const idHandler1 = subscribr.events[0].handlers[0].id;
+                const idHandler2 = subscribr.events[0].handlers[1].id;
+
+                idHandler1.should.not.equal(idHandler2);
+            });
         });
 
         describe('one()', () => {
