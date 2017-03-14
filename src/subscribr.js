@@ -55,11 +55,10 @@ module.exports = class Subscribr {
 
 }
 
-let idCounter = 0;
-
-function uniqueId() {
-    return ++idCounter;
-}
+const uniqueId = (() => {
+  let idCounter = 0;
+  return () => ++idCounter;
+})();
 
 function createCommonDestroyer(handlerId, arr) {
     return () => arr.splice(arr.findIndex(handler => handler.id === handlerId), 1);
