@@ -56,8 +56,8 @@ module.exports = class Subscribr {
 }
 
 const uniqueId = (() => {
-  let idCounter = 0;
-  return () => ++idCounter;
+    let idCounter = 0;
+    return () => ++idCounter;
 })();
 
 function createCommonDestroyer(handlerId, arr) {
