@@ -23,6 +23,22 @@ Subscribe to an event.
 - `function`  Subscription destroyer.
 <br>
 
+## `Subscribr.one(eventId, handler)`
+
+Subcribe an evento to be executed only once (gets self-destroyed after execution).
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| eventId | `string`  | the event ID. |
+| handler | `function`  | the callback function. |
+
+#### Returns
+
+- `function`  Subscription destroyer.
+<br>
+
 ## `Subscribr.emit(eventId, params)`
 
 Emit an event.
