@@ -8,7 +8,7 @@ module.exports = class Subscribr {
     on(eventId, callback) {
         if (!eventId || typeof eventId !== 'string') throw new Error('Invalid event identifier');
         if (!callback || typeof callback !== 'function') throw new Error('Invalid handler');
-        const handler = { callback, id: Date.now() };
+        const handler = { callback, id: uniqueId() };
         if (eventId === '*') {
             this._interceptors.push(handler);
             return createCommonDestroyer(handler.id, this._interceptors);
@@ -54,6 +54,11 @@ module.exports = class Subscribr {
     }
 
 }
+
+const uniqueId = (() => {
+  let idCounter = 0;
+  return () => ++idCounter;
+})();
 
 function createCommonDestroyer(handlerId, arr) {
     return () => arr.splice(arr.findIndex(handler => handler.id === handlerId), 1);
