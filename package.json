@@ -1,6 +1,6 @@
 {
   "name": "subscribr",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "A tiny event subscriber.",
   "main": "./dist/subscribr.js",
   "scripts": {
