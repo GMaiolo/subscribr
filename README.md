@@ -1,5 +1,6 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/subscribr"><img src="https://img.shields.io/npm/v/subscribr.svg" alt="npm"></a>
+  <a href="https://www.npmjs.com/package/subscribr"><img src="https://img.shields.io/npm/dt/subscribr.svg" alt="downloads"></a>
   <a href="https://travis-ci.org/GMaiolo/subscribr"><img src="https://api.travis-ci.org/GMaiolo/subscribr.svg" alt="travis"></a>
   <a href="https://david-dm.org/GMaiolo/subscribr"><img src="https://david-dm.org/GMaiolo/subscribr.svg" alt="dependencies"></a>
   <a href="https://david-dm.org/GMaiolo/subscribr?type=dev"><img src="https://david-dm.org/GMaiolo/subscribr/dev-status.svg" alt="dev dependencies"></a>
